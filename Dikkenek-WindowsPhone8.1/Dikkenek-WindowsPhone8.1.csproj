@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BD17925B-F95A-42D8-9C03-6FF193D28C1E}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dikkenek_WindowsPhone8._1</RootNamespace>
+    <AssemblyName>Dikkenek-WindowsPhone8.1</AssemblyName>
+    <DefaultLanguage>fr-FR</DefaultLanguage>
+    <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{76F1466A-8B6D-4E39-A767-685A06062A39};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\NavigationHelper.cs" />
+    <Compile Include="Common\ObservableDictionary.cs" />
+    <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="DataModel\SampleDataSource.cs" />
+    <Compile Include="HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Phrase.cs" />
+    <Compile Include="Models\PicturedModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AppViewModel.cs" />
+    <Compile Include="ViewModels\BindableBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\contentImages\background.png" />
+    <Content Include="Assets\DarkGray.png" />
+    <Content Include="Assets\faces\aziz.png" />
+    <Content Include="Assets\faces\baudouin.png" />
+    <Content Include="Assets\faces\claudy.png" />
+    <Content Include="Assets\faces\daisy.png" />
+    <Content Include="Assets\faces\default.png" />
+    <Content Include="Assets\faces\fabienne.png" />
+    <Content Include="Assets\faces\garagiste.png" />
+    <Content Include="Assets\faces\greg.png" />
+    <Content Include="Assets\faces\grosse.png" />
+    <Content Include="Assets\faces\grosse_néné.png" />
+    <Content Include="Assets\faces\jc.png" />
+    <Content Include="Assets\faces\laurence.png" />
+    <Content Include="Assets\faces\miche.png" />
+    <Content Include="Assets\faces\nadine.png" />
+    <Content Include="Assets\faces\sylvie.png" />
+    <Content Include="Assets\LightGray.png" />
+    <Content Include="Assets\MediumGray.png" />
+    <Content Include="Assets\HubBackground.theme-dark.png" />
+    <Content Include="Assets\HubBackground.theme-light.png" />
+    <Content Include="Assets\store\Logo.scale-240.png" />
+    <Content Include="Assets\store\SmallLogo.scale-240.png" />
+    <Content Include="Assets\sounds\alien.mp3" />
+    <Content Include="Assets\sounds\bercee_mur.mp3" />
+    <Content Include="Assets\sounds\biere.mp3" />
+    <Content Include="Assets\sounds\boire_gros_tas.mp3" />
+    <Content Include="Assets\sounds\boitagant.mp3" />
+    <Content Include="Assets\sounds\bonjour_sabine.mp3" />
+    <Content Include="Assets\sounds\candie.mp3" />
+    <Content Include="Assets\sounds\carjacker.mp3" />
+    <Content Include="Assets\sounds\ca_va_suffir.mp3" />
+    <Content Include="Assets\sounds\cheval_truie_tronche.mp3" />
+    <Content Include="Assets\sounds\chips.mp3" />
+    <Content Include="Assets\sounds\claudy_focan.mp3" />
+    <Content Include="Assets\sounds\clic_mieux_claque.mp3" />
+    <Content Include="Assets\sounds\cochon_electrique.mp3" />
+    <Content Include="Assets\sounds\cocker_coffre.mp3" />
+    <Content Include="Assets\sounds\connasse_va.mp3" />
+    <Content Include="Assets\sounds\couilles.mp3" />
+    <Content Include="Assets\sounds\coup_de_boule.mp3" />
+    <Content Include="Assets\sounds\cracher_lama.mp3" />
+    <Content Include="Assets\sounds\dedicace_chteu.mp3" />
+    <Content Include="Assets\sounds\deux_bieres.mp3" />
+    <Content Include="Assets\sounds\dose_de_cheval.mp3" />
+    <Content Include="Assets\sounds\encore_une_petite.mp3" />
+    <Content Include="Assets\sounds\epilee_copine.mp3" />
+    <Content Include="Assets\sounds\excessivement_enervant.mp3" />
+    <Content Include="Assets\sounds\excuse_toi.mp3" />
+    <Content Include="Assets\sounds\fou_ce_type.mp3" />
+    <Content Include="Assets\sounds\frein_a_main.mp3" />
+    <Content Include="Assets\sounds\gang_bang.mp3" />
+    <Content Include="Assets\sounds\je_rame.mp3" />
+    <Content Include="Assets\sounds\jplais_pas.mp3" />
+    <Content Include="Assets\sounds\jte_sors.mp3" />
+    <Content Include="Assets\sounds\kdo_caillou.mp3" />
+    <Content Include="Assets\sounds\kinder.mp3" />
+    <Content Include="Assets\sounds\king_route.mp3" />
+    <Content Include="Assets\sounds\la_meme.mp3" />
+    <Content Include="Assets\sounds\les_3_coups.mp3" />
+    <Content Include="Assets\sounds\le_plus_beau.mp3" />
+    <Content Include="Assets\sounds\licenciement.mp3" />
+    <Content Include="Assets\sounds\mal_baisee.mp3" />
+    <Content Include="Assets\sounds\mal_reveillee.mp3" />
+    <Content Include="Assets\sounds\merde_veste.mp3" />
+    <Content Include="Assets\sounds\michael_jackson_13sec.mp3" />
+    <Content Include="Assets\sounds\moches.mp3" />
+    <Content Include="Assets\sounds\morte_maitresse.mp3" />
+    <Content Include="Assets\sounds\moteur.mp3" />
+    <Content Include="Assets\sounds\mousse_savon.mp3" />
+    <Content Include="Assets\sounds\negocier_nichons.mp3" />
+    <Content Include="Assets\sounds\nenes_cuisses_magasines.mp3" />
+    <Content Include="Assets\sounds\oui_tendu.mp3" />
+    <Content Include="Assets\sounds\pas_de_tutututu.mp3" />
+    <Content Include="Assets\sounds\pays_de_merde.mp3" />
+    <Content Include="Assets\sounds\poli_ou_pas_poli.mp3" />
+    <Content Include="Assets\sounds\poney.mp3" />
+    <Content Include="Assets\sounds\ptite_bite.mp3" />
+    <Content Include="Assets\sounds\ptite_culotte.mp3" />
+    <Content Include="Assets\sounds\ptite_pute.mp3" />
+    <Content Include="Assets\sounds\quelle_violence.mp3" />
+    <Content Include="Assets\sounds\ressemble_pere_moche.mp3" />
+    <Content Include="Assets\sounds\schnouf_fleau.mp3" />
+    <Content Include="Assets\sounds\tchin.mp3" />
+    <Content Include="Assets\sounds\tendu_crampe.mp3" />
+    <Content Include="Assets\sounds\tendu_tendu.mp3" />
+    <Content Include="Assets\sounds\termine_bonsoir.mp3" />
+    <Content Include="Assets\sounds\tete_originale.mp3" />
+    <Content Include="Assets\sounds\tomber_sus.mp3" />
+    <Content Include="Assets\sounds\touche_seins.mp3" />
+    <Content Include="Assets\sounds\trou_de_balle.mp3" />
+    <Content Include="Assets\sounds\tu_ne_me_vois_pas.mp3" />
+    <Content Include="Assets\sounds\vieille_truie_moyen.mp3" />
+    <Content Include="Assets\store\SplashScreen.scale-240.png" />
+    <Content Include="Assets\store\Square71x71Logo.scale-240.png" />
+    <Content Include="Assets\store\StoreLogo.scale-240.png" />
+    <Content Include="Assets\store\WideLogo.scale-240.png" />
+    <Content Include="Common\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataModel\SampleData.json" />
+    <PRIResource Include="Strings\fr-FR\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
+    <VisualStudioVersion>12.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetPlatformIdentifier)' == '' ">
+    <TargetPlatformIdentifier>WindowsPhoneApp</TargetPlatformIdentifier>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
