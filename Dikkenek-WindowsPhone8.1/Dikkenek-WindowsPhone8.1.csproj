@@ -104,7 +104,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\contentImages\background.png" />
-    <Content Include="Assets\DarkGray.png" />
     <Content Include="Assets\faces\aziz.png" />
     <Content Include="Assets\faces\baudouin.png" />
     <Content Include="Assets\faces\claudy.png" />
@@ -120,10 +119,6 @@
     <Content Include="Assets\faces\miche.png" />
     <Content Include="Assets\faces\nadine.png" />
     <Content Include="Assets\faces\sylvie.png" />
-    <Content Include="Assets\LightGray.png" />
-    <Content Include="Assets\MediumGray.png" />
-    <Content Include="Assets\HubBackground.theme-dark.png" />
-    <Content Include="Assets\HubBackground.theme-light.png" />
     <Content Include="Assets\store\Logo.scale-240.png" />
     <Content Include="Assets\store\SmallLogo.scale-240.png" />
     <Content Include="Assets\sounds\alien.mp3" />
