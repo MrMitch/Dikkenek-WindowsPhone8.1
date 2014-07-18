@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
 using Dikkenek_WindowsPhone8._1.Common;
 using System;
 using Windows.Graphics.Display;
@@ -55,7 +57,7 @@ namespace Dikkenek_WindowsPhone8._1
         /// <see cref="Frame.Navigate(Type, Object)"/> lors de la requête initiale de cette page et
         /// un dictionnaire d'état conservé par cette page durant une session
         /// antérieure.  L'état n'aura pas la valeur Null lors de la première visite de la page.</param>
-        private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
         }
 
@@ -101,7 +103,7 @@ namespace Dikkenek_WindowsPhone8._1
         {
             var phrase = e.ClickedItem as Phrase;
 
-            var uri = new Uri("ms-appx:///" + phrase.Sound);
+            var uri = new Uri("ms-appx://" + phrase.Sound);
             await PlaySound(uri);
         }
 
@@ -118,6 +120,17 @@ namespace Dikkenek_WindowsPhone8._1
             {
                 (new MessageDialog("Erreur lors de la lecture du son")).ShowAsync();
             }
+        }
+
+        private async void ListViewHeader_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            var category = (sender as FrameworkElement).Tag as Category;
+
+            var random = new Random();
+            var randomPhrase = category.Phrases[random.Next(category.Phrases.Count)];
+
+            var uri = new Uri("ms-appx://" + randomPhrase.Sound);
+            await PlaySound(uri);
         }
     }
 }
