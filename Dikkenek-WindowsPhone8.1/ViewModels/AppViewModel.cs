@@ -1,7 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Windows.Storage;
 using Dikkenek_WindowsPhone8._1.Common;
 using Dikkenek_WindowsPhone8._1.Models;
+using Newtonsoft.Json;
 
 namespace Dikkenek_WindowsPhone8._1.ViewModels
 {
@@ -9,14 +16,60 @@ namespace Dikkenek_WindowsPhone8._1.ViewModels
     {
         public ObservableDictionary Categories { get; set; }
 
+        //public ObservableCollection<Phrase> FavoritePhrases { get; set; }
+
+        public Category Favorites { get; set; }
+
+        private bool _hasFavorites;
+        public bool HasFavorites
+        {
+            get { return _hasFavorites; }
+            set { SetValue(ref _hasFavorites, value); }
+        }
+
+        private DelegateCommand<Phrase> _toggleFavoriteCommand;
+        public DelegateCommand<Phrase> ToggleFavoriteCommand
+        {
+            get
+            {
+                if (_toggleFavoriteCommand == null)
+                {
+                    _toggleFavoriteCommand = new DelegateCommand<Phrase>(async phrase =>
+                    {
+                        if (!Favorites.Phrases.Contains(phrase))
+                        {
+                            Favorites.Phrases.Add(phrase);
+                        }
+                        else
+                        {
+                            Favorites.Phrases.Remove(phrase);
+                        }
+
+                        HasFavorites = Favorites.Phrases.Any();
+
+                        var jsonFile = await ApplicationData.Current.RoamingFolder.CreateFileAsync("favorites.json", CreationCollisionOption.OpenIfExists);
+                        await FileIO.WriteLinesAsync(jsonFile, Favorites.Phrases.Select(p => p.Sound));
+                    });
+                }
+                return _toggleFavoriteCommand;
+            }
+        }
+
+
         public AppViewModel()
         {
             Categories = new ObservableDictionary();
+            Favorites = new Category()
+            {
+                Name = "Favoris",
+                Phrases = new ObservableCollection<Phrase>(),
+                Picture = "favorite"
+            };
         }
  
         public bool IsDataLoaded { get; private set; }
 
-        public void LoadData()
+        public async Task LoadData()
         {
             if (!IsDataLoaded)
             {
@@ -26,7 +79,7 @@ namespace Dikkenek_WindowsPhone8._1.ViewModels
                 {
                     Name = "Les autres",
                     Picture = "default",
-                    Phrases = new List<Phrase>()
+                    Phrases = new ObservableCollection<Phrase>()
                         {
                             new Phrase()
                             {
@@ -146,7 +199,7 @@ namespace Dikkenek_WindowsPhone8._1.ViewModels
                 {
                     Name = "Claudy",
                     Picture = "claudy",
-                    Phrases = new List<Phrase>()
+                    Phrases = new ObservableCollection<Phrase>()
                         {
                             new Phrase()
                             {
@@ -344,7 +397,7 @@ namespace Dikkenek_WindowsPhone8._1.ViewModels
                 {
                     Name = "Jean-Claude",
                     Picture = "jc",
-                    Phrases = new List<Phrase>()
+                    Phrases = new ObservableCollection<Phrase>()
                         {
                             new Phrase()
                             {
@@ -446,7 +499,7 @@ namespace Dikkenek_WindowsPhone8._1.ViewModels
                 {
                     Name = "Nadine",
                     Picture = "nadine",
-                    Phrases = new List<Phrase>()
+                    Phrases = new ObservableCollection<Phrase>()
                         {
                             new Phrase()
                             {
@@ -492,6 +545,28 @@ namespace Dikkenek_WindowsPhone8._1.ViewModels
                 Categories.Add("jc", jc);
                 Categories.Add("nadine", nadine);
                 Categories.Add("others", others);
+
+                IList<string> favoriteSounds = null;
+
+                try
+                {
+                    var favoritesFile = await ApplicationData.Current.RoamingFolder.GetFileAsync("favorites.json");
+                    favoriteSounds = await FileIO.ReadLinesAsync(favoritesFile);
+                }
+                catch (FileNotFoundException)
+                {
+                }
+
+                if (favoriteSounds != null && favoriteSounds.Count > 0)
+                {
+                    var all = Categories.SelectMany(keyValuePair => (keyValuePair.Value as Category).Phrases).ToDictionary(p => p.Sound);
+                    foreach (var sound in favoriteSounds)
+                    {
+                        Favorites.Phrases.Add(all[sound]);
+                    }
+                }
+
+                HasFavorites = Favorites.Phrases.Any();
 
                 IsDataLoaded = true;
             }

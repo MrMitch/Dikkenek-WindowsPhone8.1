@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -11,6 +12,7 @@ using Windows.UI.Xaml.Navigation;
 
 // Pour en savoir plus sur le modèle Application Hub, consultez la page http://go.microsoft.com/fwlink/?LinkId=391641
 using Dikkenek_WindowsPhone8._1.Models;
+using Dikkenek_WindowsPhone8._1.ViewModels;
 
 namespace Dikkenek_WindowsPhone8._1
 {
@@ -27,9 +29,7 @@ namespace Dikkenek_WindowsPhone8._1
         {
             get { return this.navigationHelper; }
         }
-
-        //private readonly ResourceLoader resourceLoader = ResourceLoader.GetForCurrentView("Resources");
-
+        
         public HomePage()
         {
             this.InitializeComponent();
@@ -131,6 +131,18 @@ namespace Dikkenek_WindowsPhone8._1
 
             var uri = new Uri("ms-appx://" + randomPhrase.Sound);
             await PlaySound(uri);
+        }
+
+        private void Phrase_OnHolding(object sender, HoldingRoutedEventArgs e)
+        {
+            var grid = (sender as FrameworkElement);
+            var phrase = grid.DataContext as Phrase;
+
+            ToggleFavoriteFlyoutItem.Text = (DataContext as AppViewModel).Favorites.Phrases.Contains(phrase) 
+                ? "Retirer des favoris" 
+                : "Ajouter aux favoris";
+
+            ItemFlyout.ShowAt(grid);
         }
     }
 }

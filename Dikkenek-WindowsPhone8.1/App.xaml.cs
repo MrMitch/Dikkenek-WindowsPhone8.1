@@ -62,7 +62,7 @@ namespace Dikkenek_WindowsPhone8._1
 
             if (!ViewModel.IsDataLoaded)
             {
-                ViewModel.LoadData();
+                await ViewModel.LoadData();
             }
 
             // Ne répétez pas l'initialisation de l'application lorsque la fenêtre comporte déjà du contenu,

@@ -1,4 +1,4 @@
-﻿<Page
+﻿<Page x:Name="RootPage"
     x:Class="Dikkenek_WindowsPhone8._1.HomePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,6 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:data="using:Dikkenek_WindowsPhone8._1.Data"
     xmlns:viewModels="using:Dikkenek_WindowsPhone8._1.ViewModels"
+    xmlns:common="using:Dikkenek_WindowsPhone8._1.Common"
+    xmlns:converters="using:Dikkenek_WindowsPhone8._1.Converters"
     mc:Ignorable="d">
 
     <d:Page.DataContext>
@@ -14,6 +16,33 @@
     </d:Page.DataContext>
     
     <Page.Resources>
+        
+        <common:BindingProxy Data="{Binding}" x:Key="Proxy" />
+        
+        <converters:BooleanConverter x:Key="BooleanToVisibilityConverter">
+            <converters:BooleanConverter.TrueValue>
+                <Visibility>Visible</Visibility>
+            </converters:BooleanConverter.TrueValue>
+            <converters:BooleanConverter.FalseValue>
+                <Visibility>Collapsed</Visibility>
+            </converters:BooleanConverter.FalseValue>
+        </converters:BooleanConverter>
+
+        <MenuFlyout x:Name="ItemFlyout">
+            <MenuFlyoutItem x:Name="ToggleFavoriteFlyoutItem" 
+                            Command="{Binding Data.ToggleFavoriteCommand, Source={StaticResource Proxy}}" 
+                            CommandParameter="{Binding}" />
+            <MenuFlyoutItem Command="{Binding Source={StaticResource Proxy}}" 
+                            CommandParameter="{Binding}" 
+                            Text="Épingler à l'écran d'accueil" />
+            <MenuFlyoutItem Command="{Binding Source={StaticResource Proxy}}" 
+                            CommandParameter="{Binding}" 
+                            Text="Définir comme sonnerie d'appel" />
+            <MenuFlyoutItem Command="{Binding Source={StaticResource Proxy}}" 
+                            CommandParameter="{Binding}" 
+                            Text="Définir comme sonnerie SMS" />
+        </MenuFlyout>
+        
         <DataTemplate x:Key="SectionDataTemplate">
             <ListView ItemsSource="{Binding Phrases}"
                       IsItemClickEnabled="True"
@@ -33,7 +62,9 @@
                 </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Margin="0,0,9.5,9.5">
+                        <Grid Margin="0,0,9.5,9.5" 
+                              IsHoldingEnabled="True"
+                              Holding="Phrase_OnHolding">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -72,6 +103,11 @@
                 <ImageBrush ImageSource="Assets/contentImages/background.png"
                             Stretch="UniformToFill"/>
             </Hub.Background>
+
+            <HubSection ContentTemplate="{StaticResource SectionDataTemplate}"
+                        DataContext="{Binding Favorites}"
+                        Visibility="{Binding Data.HasFavorites, Source={StaticResource Proxy}, Converter={StaticResource BooleanToVisibilityConverter}}">
+            </HubSection>
             
             <HubSection ContentTemplate="{StaticResource SectionDataTemplate}"
                         DataContext="{Binding Categories[claudy]}"/>
@@ -86,4 +122,10 @@
                         DataContext="{Binding Categories[others]}"/>
         </Hub>
     </Grid>
+    
+    <Page.BottomAppBar>
+        <CommandBar ClosedDisplayMode="Minimal">
+            <AppBarButton Icon="Help">Aide</AppBarButton>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>
