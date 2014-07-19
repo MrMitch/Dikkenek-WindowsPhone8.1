@@ -131,7 +131,6 @@
                                   ItemsSource="{Binding Favorites.Phrases}"
                                   ItemTemplate="{StaticResource SoundDataTemplate}"
                                   ItemClick="PhrasesListView_OnItemClick"
-                                  CanReorderItems="True"
                                   IsItemClickEnabled="True"
                                   ReorderMode="{Binding CanReorderFavorites, Converter={StaticResource BooleanToReorderModeConverter}}"/>
                         <!--
