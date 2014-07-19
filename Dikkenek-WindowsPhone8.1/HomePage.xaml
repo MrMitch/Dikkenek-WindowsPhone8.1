@@ -12,7 +12,7 @@
     mc:Ignorable="d"
     DataContext="{Binding ViewModel, RelativeSource={RelativeSource Mode=Self}}"
     RequestedTheme="Dark">
-    
+
     <Page.Resources>
         <common:BindingProxy Data="{Binding}" x:Key="Proxy" />
 
@@ -72,8 +72,8 @@
                     </StackPanel>
                 </ListView.Header>
             </ListView>
-        </DataTemplate> 
-        
+        </DataTemplate>
+
         <converters:BooleanConverter x:Key="BooleanToInversedVisibilityConverter">
             <converters:BooleanConverter.TrueValue>
                 <Visibility>Collapsed</Visibility>
@@ -91,6 +91,15 @@
                 <Visibility>Collapsed</Visibility>
             </converters:BooleanConverter.FalseValue>
         </converters:BooleanConverter>
+
+        <converters:BooleanConverter x:Key="BooleanToReorderModeConverter">
+            <converters:BooleanConverter.TrueValue>
+                <ListViewReorderMode>Enabled</ListViewReorderMode>
+            </converters:BooleanConverter.TrueValue>
+            <converters:BooleanConverter.FalseValue>
+                <ListViewReorderMode>Disabled</ListViewReorderMode>
+            </converters:BooleanConverter.FalseValue>
+        </converters:BooleanConverter>
     </Page.Resources>
 
     <Grid>
@@ -102,26 +111,29 @@
                       AutoPlay="True"
                       Visibility="Collapsed"
                       IsMuted="False"/>
-        
-        <Hub Header="DIꓘꓗENEK SOUNDBOARD">
+
+        <Hub Header="DIꓘꓗENEK SOUNDBOARD"
+             SectionsInViewChanged="Hub_OnSectionsInViewChanged">
             <Hub.Background>
                 <ImageBrush ImageSource="Assets/contentImages/background.png"
                             Stretch="UniformToFill"/>
             </Hub.Background>
 
-            <HubSection>
+            <HubSection Name="FavoritesSection">
                 <DataTemplate>
                     <Grid>
                         <TextBlock VerticalAlignment="Top" 
                                    Style="{StaticResource ListViewEmptyStaticTextBlockStyle}"
                                    Visibility="{Binding HasFavorites, Converter={StaticResource BooleanToInversedVisibilityConverter}}"
                                    Text="Ajoutez des répliques aux favoris pour les afficher ici et y avoir accès plus rapidement"/>
-                        
+
                         <ListView VerticalAlignment="Stretch" 
                                   ItemsSource="{Binding Favorites.Phrases}"
                                   ItemTemplate="{StaticResource SoundDataTemplate}"
                                   ItemClick="PhrasesListView_OnItemClick"
-                                  IsItemClickEnabled="True"/>
+                                  CanReorderItems="True"
+                                  IsItemClickEnabled="True"
+                                  ReorderMode="{Binding CanReorderFavorites, Converter={StaticResource BooleanToReorderModeConverter}}"/>
                         <!--
                         <ContentControl HorizontalContentAlignment="Stretch"
                                         Visibility="{Binding HasFavorites, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -145,9 +157,13 @@
                         DataContext="{Binding Categories[others]}"/>
         </Hub>
     </Grid>
-    
+
     <Page.BottomAppBar>
         <CommandBar ClosedDisplayMode="Minimal">
+            <AppBarToggleButton x:Name="ReoderButton" Icon="Sort" 
+                                IsChecked="{Binding CanReorderFavorites, Mode=TwoWay}"
+                                Label="Réorganiser" 
+                                IsThreeState="False" />
             <AppBarButton Icon="Help" Label="Aide" />
         </CommandBar>
     </Page.BottomAppBar>

@@ -28,6 +28,13 @@ namespace Dikkenek_WindowsPhone8._1.ViewModels
             set { SetValue(ref _hasFavorites, value); }
         }
 
+        private bool _canReorderFavorites;
+        public bool CanReorderFavorites
+        {
+            get { return _canReorderFavorites; }
+            set { SetValue(ref _canReorderFavorites, value); }
+        }
+        
         private DelegateCommand<Phrase> _toggleFavoriteCommand;
         public DelegateCommand<Phrase> ToggleFavoriteCommand
         {

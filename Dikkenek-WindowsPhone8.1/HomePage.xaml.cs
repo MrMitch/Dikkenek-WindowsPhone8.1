@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Popups;
@@ -146,6 +147,18 @@ namespace Dikkenek_WindowsPhone8._1
                 : "Ajouter aux favoris";
 
             ItemFlyout.ShowAt(grid);
+        }
+
+        private void Hub_OnSectionsInViewChanged(object sender, SectionsInViewChangedEventArgs e)
+        {
+            if (e.AddedSections.Any(s => s.Name == "FavoritesSection"))
+            {
+                ReoderButton.Visibility = Visibility.Visible;
+            }
+            else if (e.RemovedSections.Any(s => s.Name == "FavoritesSection"))
+            {
+                ReoderButton.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }
