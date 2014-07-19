@@ -56,19 +56,7 @@ namespace Dikkenek_WindowsPhone8._1.ViewModels
                         HasFavorites = Favorites.Phrases.Any();
                         
                         var jsonFile = await ApplicationData.Current.RoamingFolder.CreateFileAsync("favorites.json", CreationCollisionOption.OpenIfExists);
-                        //await FileIO.WriteLinesAsync(jsonFile, Favorites.Phrases.Select(p => p.Sound));
-                        //return;
-
-                        var lines = Favorites.Phrases.Select(p => p.Sound);
-
-                        if (!lines.Any())
-                        {
-                            await FileIO.WriteTextAsync(jsonFile, String.Empty);
-                        }
-                        else
-                        {
-                            await FileIO.WriteLinesAsync(jsonFile, lines);                            
-                        }
+                        await FileIO.WriteLinesAsync(jsonFile, Favorites.Phrases.Select(p => p.Sound));
                     });
                 }
                 return _toggleFavoriteCommand;
