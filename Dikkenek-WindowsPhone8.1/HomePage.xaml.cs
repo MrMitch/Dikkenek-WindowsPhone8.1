@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Popups;
@@ -21,6 +22,8 @@ namespace Dikkenek_WindowsPhone8._1
     /// </summary>
     public sealed partial class HomePage : Page
     {
+        public AppViewModel ViewModel { get; set; }
+
         /// <summary>
         /// Obtient le <see cref="NavigationHelper"/> associé à ce <see cref="Page"/>.
         /// </summary>
@@ -32,9 +35,9 @@ namespace Dikkenek_WindowsPhone8._1
         
         public HomePage()
         {
-            this.InitializeComponent();
+            ViewModel = (App.Current as App).ViewModel;
 
-            DataContext = (App.Current as App).ViewModel;
+            this.InitializeComponent();
 
             // Hub est pris en charge uniquement en mode Portrait
             DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
@@ -138,7 +141,7 @@ namespace Dikkenek_WindowsPhone8._1
             var grid = (sender as FrameworkElement);
             var phrase = grid.DataContext as Phrase;
 
-            ToggleFavoriteFlyoutItem.Text = (DataContext as AppViewModel).Favorites.Phrases.Contains(phrase) 
+            ToggleFavoriteFlyoutItem.Text = ViewModel.Favorites.Phrases.Contains(phrase) 
                 ? "Retirer des favoris" 
                 : "Ajouter aux favoris";
 

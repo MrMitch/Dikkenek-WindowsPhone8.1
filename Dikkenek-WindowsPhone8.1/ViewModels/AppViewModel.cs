@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.UI.Xaml;
 using Dikkenek_WindowsPhone8._1.Common;
 using Dikkenek_WindowsPhone8._1.Models;
 using Newtonsoft.Json;
@@ -16,9 +17,9 @@ namespace Dikkenek_WindowsPhone8._1.ViewModels
     {
         public ObservableDictionary Categories { get; set; }
 
-        //public ObservableCollection<Phrase> FavoritePhrases { get; set; }
-
         public Category Favorites { get; set; }
+
+        public bool IsDataLoaded { get; private set; }
 
         private bool _hasFavorites;
         public bool HasFavorites
@@ -46,9 +47,21 @@ namespace Dikkenek_WindowsPhone8._1.ViewModels
                         }
 
                         HasFavorites = Favorites.Phrases.Any();
-
+                        
                         var jsonFile = await ApplicationData.Current.RoamingFolder.CreateFileAsync("favorites.json", CreationCollisionOption.OpenIfExists);
-                        await FileIO.WriteLinesAsync(jsonFile, Favorites.Phrases.Select(p => p.Sound));
+                        //await FileIO.WriteLinesAsync(jsonFile, Favorites.Phrases.Select(p => p.Sound));
+                        //return;
+
+                        var lines = Favorites.Phrases.Select(p => p.Sound);
+
+                        if (!lines.Any())
+                        {
+                            await FileIO.WriteTextAsync(jsonFile, String.Empty);
+                        }
+                        else
+                        {
+                            await FileIO.WriteLinesAsync(jsonFile, lines);                            
+                        }
                     });
                 }
                 return _toggleFavoriteCommand;
@@ -66,8 +79,6 @@ namespace Dikkenek_WindowsPhone8._1.ViewModels
                 Picture = "favorite"
             };
         }
- 
-        public bool IsDataLoaded { get; private set; }
 
         public async Task LoadData()
         {
@@ -571,6 +582,5 @@ namespace Dikkenek_WindowsPhone8._1.ViewModels
                 IsDataLoaded = true;
             }
         }
-
     }
 }
